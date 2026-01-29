@@ -68,7 +68,7 @@ createApp({
         axios.get('/api/fitness/exercises').then(res => {
             this.exercises = res.data.exercises || this.defaultExercises();
         }).catch(() => {
-            this.error = '加载远程运动项目失败，使用内置默认列表';
+            this.error = 'Failed to load remote exercises; using built-in default list';
             this.exercises = this.defaultExercises();
         });
     },
@@ -128,9 +128,9 @@ createApp({
         async copyRecord() {
             try {
                 await navigator.clipboard.writeText(this.generatedRecord);
-                alert('已复制到剪贴板');
+                alert('Copied to clipboard');
             } catch (err) {
-                console.error('复制失败:', err);
+                console.error('Copy failed:', err);
                 const textarea = document.createElement('textarea');
                 textarea.value = this.generatedRecord;
                 textarea.style.position = 'fixed';
@@ -139,12 +139,12 @@ createApp({
                 try {
                     const success = document.execCommand('copy');
                     if (success) {
-                        console.log('已复制到剪贴板（备用方案）');
+                        console.log('Copied to clipboard (fallback)');
                     } else {
-                        alert('复制失败，请手动复制');
+                        alert('Copy failed, please copy manually');
                     }
                 } catch (e) {
-                    alert('复制失败，请手动复制');
+                    alert('Copy failed, please copy manually');
                 }
                 document.body.removeChild(textarea);
             }
